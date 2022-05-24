@@ -21,6 +21,9 @@ app.use('/users', usersRouter);
 module.exports = app;
 
 ////
+mongoose.connect("mongodb+srv://mongodb1247:mongodb1247@cluster0.zztka.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+
 const Schema = mongoose.Schema;
 const userSchema = {
     PL: String,
