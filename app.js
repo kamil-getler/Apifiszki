@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -18,3 +19,31 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 module.exports = app;
+
+////
+const Schema = mongoose.Schema;
+const userSchema = {
+    PL: String,
+    ANG: String
+
+}
+
+const User = mongoose.model("User", userSchema)
+
+app.get("/", function(req, res) {
+    res.sendFile(__dirname + "/index.html");
+})
+
+
+
+
+app.post("/", function(req, res) {
+    let newNote = new User({
+        PL: req.body.title,
+        ANG: req.body.content
+
+    });
+    newNote.save();
+
+    res.redirect('/');
+})
