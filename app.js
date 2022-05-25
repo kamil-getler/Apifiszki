@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -20,7 +21,8 @@ app.use('/users', usersRouter);
 
 module.exports = app;
 
-////
+let and = 'angielskie'
+    ////
 mongoose.connect("mongodb+srv://mongodb1247:mongodb1247@cluster0.zztka.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 
@@ -31,7 +33,8 @@ const userSchema = {
 
 }
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema);
+const User2 = mongoose.model("User2", userSchema)
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/index.html");
@@ -50,3 +53,33 @@ app.post("/", function(req, res) {
 
     res.redirect('/');
 })
+
+const finder = User.find(function(err, docs) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("First function call : ", docs);
+        and = docs;
+    }
+});
+setTimeout(read, 8000, true);
+
+
+function read() {
+    and.forEach(element => {
+        const Word = element.ANG
+        console.log(Word)
+        document.getElementsByClassName("wynik").innerHTML = Word;
+    });
+
+};
+
+
+
+
+
+// User.find().mo(function(p) {
+//     print(
+//         user.user.replace("kot", "CAAT")
+//     );
+// });
